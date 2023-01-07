@@ -1,62 +1,34 @@
-'use strict'
+'use strict';
 //JavaScript Task find MAX MIN
 // askar.developer@gmail.com
-
-const array = [1, 4, 46, 76, 3, 899, 5, 2, 8, 10, 1000, 67, 101, 0, -68];
-
-// findMax with for in
-function findMax(arr) {
-  let acc = 0
-  for (let i in arr) {
-    if (arr[i] > acc) {
-      acc = arr[i]
-    }
-  }
-  console.log(acc + ' for in findMax')
-};
-findMax(array);
+const bigArray = new Array(1_000_000).fill().map(() => Math.random() * 100);
 
 // findMax with for
-function findArrMax(arr) {
-  let acc = 0
+function findMax(arr) {
+  let acc
   for (let i = 0; i < arr.length; i++) {
-    if (arr[i] > acc) {
+    if (arr[i] > acc || acc === undefined) {
       acc = arr[i]
     }
   }
-  console.log(acc + ' for findMax')
+  return acc
 };
-findArrMax(array);
+console.log(findMax(bigArray) + ' findMax with for');
 
-// findMax with while
-function findArrayMax(arr) {
-  let acc = 0
-  let i = 0
-  while (i < arr.length) {
-    if (arr[i] > acc) {
-      acc = arr[i]
-    }
-    i++
-  }
-  console.log(acc + ' while findMax')
-};
-findArrayMax(array);
+// findMax with reduce + Math
+console.log(bigArray.reduce((prev, curr) => Math.max(prev, curr)) + ' findMax reduce + Math');
 
-// findMax with JS Math
-console.log(Math.max(...array) + ' Math findMax');
+//find min through reduce + Math
+console.log(bigArray.reduce((prev, curr) => Math.min(prev, curr)) + ' findMin reduce + Math');
 
-
-// find min
+// find min for in (slowly then for)
 function findMin(arr) {
-  let acc;
+  let acc
   for (let i in arr) {
-    if (acc === undefined || arr[i] < acc) {
+    if (arr[i] < acc || acc === undefined) {
       acc = arr[i]
     }
   }
-  console.log(acc + ' for in findMin')
+  return acc
 };
-findMin(array);
-
-//find min through Math
-console.log(Math.min(...array) + ' Math findMin');
+console.log(findMin(bigArray) + ' findMin with for in (slowly!!!) ');
